@@ -1,28 +1,46 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <headerNav @genereParola="FunzioneTrasferimentoParola" />
+    <mainContent :parola="filtroGenere" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import headerNav from "./components/headerNav.vue";
+import mainContent from "./components/mainContent.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    headerNav,
+    mainContent,
+  },
+  data() {
+    return {
+      filtroGenere: "",
+    };
+  },
+  methods: {
+    FunzioneTrasferimentoParola: function (ricerca) {
+      this.filtroGenere = ricerca;
+    },
+  },
+};
 </script>
 
 <style lang="scss">
+@import "./assets/scss/_style.scss";
+
+* {
+  @include reset;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  // border: 1px solid red;
+  width: 100%;
+  min-height: 100vh;
 }
 </style>
