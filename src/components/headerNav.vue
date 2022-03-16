@@ -25,9 +25,8 @@ export default {
   methods: {
     valoreDellaRicerca: function () {
       if (this.ricerca.length > 0) {
-        console.log('funcione heder')
         this.$emit("genereParola", this.ricerca);
-        // this.ricerca = "";
+        this.ricerca = "";
       }
     },
   },
