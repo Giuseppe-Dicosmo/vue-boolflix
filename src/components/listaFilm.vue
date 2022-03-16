@@ -9,7 +9,15 @@
     <div class="info">
       <h4>{{ propsFilm.title }}</h4>
       <h5>{{ propsFilm.original_title }}</h5>
-      <p>voto: {{ propsFilm.vote_average }}</p>
+
+      <span
+        v-for="(el, i) in 5"
+        :key="i"
+        :class="i < votoDiviso(propsFilm) ? 'star' : ''"
+      >
+        &starf;
+      </span>
+
       <span v-if="propsFilm.original_language == 'en'"
         ><img src="../assets/united_kingdom_flags_flag_17079.png" alt=""
       /></span>
@@ -36,6 +44,11 @@ export default {
       require: true,
     },
   },
+  methods: {
+    votoDiviso: function (propsFilm) {
+      return Math.ceil(propsFilm.vote_average / 2);
+    },
+  },
 };
 </script>
 
@@ -54,6 +67,10 @@ li {
     img {
       max-width: 100%;
     }
+  }
+
+  .star {
+    color: yellow;
   }
 }
 </style>

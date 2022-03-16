@@ -10,7 +10,7 @@
       <h1 :class="listaSerieTV.length > 0 ? 'display-block' : 'display-none'">
         Serie TV
       </h1>
-      <listaSerie v-for="tv in listaSerieTV" :key="tv.id" :propstv="tv" />
+      <listaSerie v-for="tv in listaSerieTV" :key="tv.id" :propsTv="tv" />
     </ul>
   </main>
 </template>

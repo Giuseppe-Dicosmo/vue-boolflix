@@ -2,27 +2,35 @@
   <li>
     <figure>
       <img
-        :src="`https://image.tmdb.org/t/p/w342/${propstv.poster_path}`"
+        :src="`https://image.tmdb.org/t/p/w342/${propsTv.poster_path}`"
         alt=""
       />
     </figure>
     <div class="info">
-      <h4>{{ propstv.title }}</h4>
-      <h5>{{ propstv.original_title }}</h5>
-      <p>voto: {{ propstv.vote_average }}</p>
-      <span v-if="propstv.original_language == 'en'"
+      <h4>{{ propsTv.title }}</h4>
+      <h5>{{ propsTv.original_title }}</h5>
+
+      <span
+        v-for="(el, i) in 5"
+        :key="i"
+        :class="i < votoDiviso(propsTv) ? 'star' : ''"
+      >
+        &starf;
+      </span>
+
+      <span v-if="propsTv.original_language == 'en'"
         ><img src="../assets/united_kingdom_flags_flag_17079.png" alt=""
       /></span>
-      <span v-else-if="propstv.original_language == 'it'"
+      <span v-else-if="propsTv.original_language == 'it'"
         ><img src="../assets/italy_flags_flag_17018.png" alt=""
       /></span>
-      <span v-else-if="propstv.original_language == 'es'"
+      <span v-else-if="propsTv.original_language == 'es'"
         ><img src="../assets/spain_flags_flag_17068.png" alt=""
       /></span>
-      <span v-else-if="propstv.original_language == 'ed'"
+      <span v-else-if="propsTv.original_language == 'ed'"
         ><img src="../assets/germany_flags_flag_17001.png" alt=""
       /></span>
-      <span v-else>{{ propstv.original_language }}</span>
+      <span v-else>{{ propsTv.original_language }}</span>
     </div>
   </li>
 </template>
@@ -31,9 +39,14 @@
 export default {
   name: "listaSerie",
   props: {
-    propstv: {
+    propsTv: {
       type: Object,
       require: true,
+    },
+  },
+  methods: {
+    votoDiviso: function (propsTv) {
+      return Math.ceil(propsTv.vote_average / 2);
     },
   },
 };
@@ -54,6 +67,10 @@ li {
     img {
       max-width: 100%;
     }
+  }
+
+  .star {
+    color: yellow;
   }
 }
 </style>
