@@ -1,10 +1,13 @@
 <template>
-  <div>
+  <main>
     <ul>
-      <listaFilm v-for="film in movies" :key="film.id" />
-      {{film.original_title}}
+      <listaFilm v-for="film in movies" :key="film.id" :propsFilm="film" />
+      <!-- <li >
+        {{ film.title }}
+      </li> -->
+      <span>{{ parola }}</span>
     </ul>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -16,36 +19,46 @@ export default {
   components: {
     listaFilm,
   },
-  data() {
-    return {
-      movies: [],
-    };
-  },
   props: {
     parola: {
       type: String,
-      default: "",
+      require: true,
+      default: "non disponibile",
     },
   },
+  data() {
+    return {
+      // ritorno al futuro
+      // search: `batman`,
+      movies: [],
+      baseURL: "https://api.themoviedb.org/3",
+    };
+  },
+  computed: {
+    // filterfilm: function() {
+      // this.search = this.parola;
+    // if (this.parola === "") {
+    // }
+    // },
+  },
   methods: {
-    filterfilm() {
-      if (this.parola === "") {
-        return this.movies;
-      }
-    },
     metodo1: function () {
       axios
-        .get(
-          "https://api.themoviedb.org/3/movie/550?api_key=04cbd33b4b9f5d7abe1052e820d20b94"
-        )
+        .get(`${this.baseURL}/search/movie`, {
+          params: {
+            api_key: "04cbd33b4b9f5d7abe1052e820d20b94",
+            query: this.parola,
+            language: "it-IT",
+          },
+        })
         .then((res) => {
           console.log("res.data", res.data);
-          this.movies = res.data;
+          this.movies = res.data.results;
         })
         .catch((error) => {
           console.log("error.data", error.response);
         });
-    },
+    }
   },
   created() {
     this.metodo1();
@@ -53,4 +66,17 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+main {
+  display: flex;
+  justify-content: center;
+  ul {
+    border: 2px solid green;
+    list-style-type: none;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    color: white;
+  }
+}
+</style>

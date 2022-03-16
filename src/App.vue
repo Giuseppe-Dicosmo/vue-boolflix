@@ -42,5 +42,6 @@ export default {
   // border: 1px solid red;
   width: 100%;
   min-height: 100vh;
+  background: black;
 }
 </style>
