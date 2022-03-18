@@ -46,7 +46,6 @@ main {
       width: 100%;
       text-align: center;
     }
-    border: 2px solid green;
     list-style-type: none;
     display: flex;
     flex-flow: row wrap;

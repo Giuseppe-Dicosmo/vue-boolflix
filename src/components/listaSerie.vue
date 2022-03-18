@@ -2,7 +2,13 @@
   <li>
     <figure>
       <img
+        v-if="propsTv.poster_path"
         :src="`https://image.tmdb.org/t/p/w342/${propsTv.poster_path}`"
+        alt=""
+      />
+      <img
+        v-else
+        src="https://www.altomolise.net/archivi/immagini/2014/S/segnale-tv-assente.jpg"
         alt=""
       />
     </figure>
@@ -10,27 +16,23 @@
       <h4>{{ propsTv.title }}</h4>
       <h5>{{ propsTv.original_title }}</h5>
 
-      <span
-        v-for="(el, i) in 5"
-        :key="i"
-        :class="i < votoDiviso(propsTv) ? 'star' : ''"
-      >
-        &starf;
-      </span>
+      <div>
+        <span
+          v-for="(el, i) in 5"
+          :key="i"
+          :class="i < votoDiviso(propsTv) ? 'star' : ''"
+        >
+          &starf;
+        </span>
+      </div>
 
-      <span v-if="propsTv.original_language == 'en'"
-        ><img src="../assets/united_kingdom_flags_flag_17079.png" alt=""
-      /></span>
-      <span v-else-if="propsTv.original_language == 'it'"
-        ><img src="../assets/italy_flags_flag_17018.png" alt=""
-      /></span>
-      <span v-else-if="propsTv.original_language == 'es'"
-        ><img src="../assets/spain_flags_flag_17068.png" alt=""
-      /></span>
-      <span v-else-if="propsTv.original_language == 'ed'"
-        ><img src="../assets/germany_flags_flag_17001.png" alt=""
-      /></span>
-      <span v-else>{{ propsTv.original_language }}</span>
+      <figure class="language">
+        <img
+          :src="`http://purecatamphetamine.github.io/country-flag-icons/3x2/${flag(
+            propsTv.original_language
+          )}.svg`"
+        />
+      </figure>
     </div>
   </li>
 </template>
@@ -45,6 +47,14 @@ export default {
     },
   },
   methods: {
+    flag: function (unicode) {
+      if (unicode == "en") {
+        unicode = "gb";
+      }
+
+      return unicode.toUpperCase();
+    },
+
     votoDiviso: function (propsTv) {
       return Math.ceil(propsTv.vote_average / 2);
     },
@@ -54,23 +64,60 @@ export default {
 
 <style scoped lang="scss">
 li {
-  border: 2px solid purple;
   text-align: center;
-  width: 20%;
-  // height: 10%;
+  position: relative;
   margin: 15px;
+  width: calc((100% / 5) - 30px);
 
   figure {
-    border: 2px solid firebrick;
-    width: 100%;
+    height: 100%;
 
     img {
-      max-width: 100%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
   }
 
-  .star {
-    color: yellow;
+  &:hover > .info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+    background: rgba($color: #000000, $alpha: 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .info {
+    display: none;
+
+    .language {
+      width: 60px;
+      height: 30px;
+      // display: inline;
+
+      img {
+        max-width: 100%;
+      }
+    }
+    .star {
+      color: yellow;
+    }
+  }
+}
+@media screen and (max-width: 721px) {
+  li {
+    width: calc((100% / 3) - 30px);
+  }
+}
+
+@media screen and (max-width: 321px) {
+  li {
+    width: calc((100% / 1) - 30px);
   }
 }
 </style>

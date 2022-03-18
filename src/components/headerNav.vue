@@ -1,7 +1,7 @@
 <template>
   <header>
     <figure>
-      <img src="../assets/Boolflix.svg" alt="">
+      <img src="../assets/Boolflix.svg" alt="" />
     </figure>
     <input
       @keyup.enter="valoreDellaRicerca"
@@ -10,7 +10,12 @@
       placeholder="cosa vorresti vedere"
       type="text"
     />
-    <input @click="valoreDellaRicerca" class="button-cerca" type="button" value="cerca" />
+    <input
+      @click="valoreDellaRicerca"
+      class="button-cerca"
+      type="button"
+      value="cerca"
+    />
   </header>
 </template>
 
@@ -36,18 +41,23 @@ export default {
 <style scoped lang="scss">
 header {
   height: 65px;
-  // border: 1px solid red;
+  // border: 1px solid red;ù
+  position: sticky !important;
+  top: 0;
+  z-index: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
   gap: 15px;
   background: #3b3b3b;
 
   figure {
-    border: 1px solid red;
+    position: absolute;
+    left: 10px;
 
     img {
-      max-width: 100%;
+      width: 50%;
     }
   }
 
@@ -55,6 +65,7 @@ header {
     padding: 5px 10px;
     border-radius: 30px;
     text-align: center;
+    font-size: 1.1em;
   }
   .button-cerca {
     background: red;
@@ -62,6 +73,7 @@ header {
     border: none;
     border-radius: 10px;
     padding: 10px;
+    font-size: 1.1em;
     cursor: pointer;
 
     &:hover {
