@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <headerNav @genereParola="funzioneTrasferimentoParola" />
+    <!-- @genereParola="funzioneTrasferimentoParola" -->
+    <headerNav />
     <mainContent :listaMovies="movies" :listaSerieTV="tv" />
   </div>
 </template>
@@ -8,7 +9,8 @@
 <script>
 import headerNav from "./components/headerNav.vue";
 import mainContent from "./components/mainContent.vue";
-import axios from "axios";
+// import axios from "axios";
+import state from "./store.js";
 
 export default {
   name: "App",
@@ -16,52 +18,17 @@ export default {
     headerNav,
     mainContent,
   },
-  data() {
-    return {
-      filtroGenere: "",
-      movies: [],
-      tv: [],
-      baseURL: "https://api.themoviedb.org/3",
-    };
-  },
-  methods: {
-    funzioneTrasferimentoParola: function (ricerca) {
-      this.filtroGenere = ricerca;
-      this.arryFilmTv();
+  computed: {
+    movies: function () {
+      return state.movies;
     },
 
-    arryFilmTv: function () {
-      axios
-        .get(`${this.baseURL}/search/movie`, {
-          params: {
-            api_key: "04cbd33b4b9f5d7abe1052e820d20b94",
-            query: this.filtroGenere,
-            language: "it-IT",
-          },
-        })
-        .then((res) => {
-          // console.log("res.data", res.data);
-          this.movies = res.data.results;
-        })
-        .catch((error) => {
-          console.log("error.data", error.response);
-        });
+    tv: function () {
+      return state.tv;
+    },
 
-      axios
-        .get(`${this.baseURL}/search/tv`, {
-          params: {
-            api_key: "04cbd33b4b9f5d7abe1052e820d20b94",
-            query: this.filtroGenere,
-            language: "it-IT",
-          },
-        })
-        .then((res) => {
-          // console.log("res.data", res.data);
-          this.tv = res.data.results;
-        })
-        .catch((error) => {
-          console.log("error.data", error.response);
-        });
+    search: function () {
+      return state.ricerca;
     },
   },
 };
@@ -75,7 +42,6 @@ export default {
 }
 
 #app {
-
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

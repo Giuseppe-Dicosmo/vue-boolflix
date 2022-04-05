@@ -20,6 +20,9 @@
 </template>
 
 <script>
+import state from "../store.js";
+import { arryFilmTv } from "../store.js";
+
 export default {
   name: "headerNav",
   data() {
@@ -30,8 +33,9 @@ export default {
   methods: {
     valoreDellaRicerca: function () {
       if (this.ricerca.length > 0) {
-        this.$emit("genereParola", this.ricerca);
-        this.ricerca = "";
+        state.ricerca = this.ricerca;
+
+        arryFilmTv();
       }
     },
   },
