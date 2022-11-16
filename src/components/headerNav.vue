@@ -4,14 +4,14 @@
       <img src="../assets/Boolflix.svg" alt="" />
     </figure>
     <input
-      @keyup.enter="valoreDellaRicerca"
+      @keyup.enter="valoreRicerca"
       v-model="ricerca"
       class="text-cerca"
       placeholder="cosa vorresti vedere"
       type="text"
     />
     <input
-      @click="valoreDellaRicerca"
+      @click="valoreRicerca"
       class="button-cerca"
       type="button"
       value="cerca"
@@ -31,7 +31,7 @@ export default {
     };
   },
   methods: {
-    valoreDellaRicerca: function () {
+    valoreRicerca: function () {
       if (this.ricerca.length > 0) {
         state.ricerca = this.ricerca;
 
