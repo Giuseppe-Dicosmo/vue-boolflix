@@ -7,7 +7,7 @@
       @keyup.enter="valoreRicerca"
       v-model="ricerca"
       class="text-cerca"
-      placeholder="cosa vorresti vedere"
+      placeholder="Cosa vorresti vedere"
       type="text"
     />
     <input
